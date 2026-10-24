@@ -126,6 +126,19 @@ nav.top-nav a:hover{opacity:1;color:var(--gorse);text-decoration:underline}
 }
 .hero svg{position:absolute;right:-4%;bottom:-6%;width:min(60vw,640px);opacity:.18;pointer-events:none}
 
+
+/* HOMEPAGE TILES + MERGED LOCAL PAGE */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:1.4rem}
+.tile{display:flex;flex-direction:column;gap:.25rem;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gorse);padding:1.1rem 1.2rem;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s}
+.tile:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,47,75,.12)}
+.tile .material-symbols-outlined{font-size:2rem;color:var(--sea)}
+.tile b{font:500 1.5rem/1.1 "Cormorant Garamond",Georgia,serif;color:var(--hero)}
+.tile small{color:var(--mute);font-size:.9rem}
+.jump{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 1.6rem}
+.jump a{border:1px solid var(--sea);border-radius:99px;padding:.3rem 1rem;text-decoration:none;font-size:.9rem}
+.jump a:hover{background:var(--sea);color:#fff}
+h3.sub{font-size:clamp(1.7rem,4vw,2.3rem);color:var(--hero);margin:2.2rem 0 .6rem;padding-top:1.2rem;border-top:1px solid var(--line);scroll-margin-top:4.5rem}
+
 /* COMPACT HEADER FOR MOBILE / PWA USERS */
 @media (max-width: 768px), (display-mode: standalone) {
   .hero {
@@ -354,11 +367,11 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
 <!-- DESKTOP TOP NAVIGATION BAR -->
 <nav class="top-nav" aria-label="Main Navigation">
   <b>Thormanby Hill</b>
+  <a href="#welcome" onclick="handleNavClick('welcome', event)">Home</a>
   <a href="#estate" onclick="handleNavClick('estate', event)">Estate</a>
   <a href="#board" onclick="handleNavClick('board', event)">Noticeboard</a>
   <a href="#calendar-sec" onclick="handleNavClick('calendar', event)">Calendar</a>
-  <a href="#home" onclick="handleNavClick('home', event)">Your home</a>
-  <a href="#around" onclick="handleNavClick('around', event)">Around Howth</a>
+  <a href="#local" onclick="handleNavClick('local', event)">Your home &amp; Howth</a>
   <button id="installAppBtn" class="install-btn" style="display:none;">📱 Install App</button>
 </nav>
 
@@ -366,20 +379,40 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
 <header class="hero">
   <svg viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><path d="M0 250 Q60 120 140 150 T260 90 T400 40"/><path d="M0 280 Q100 190 190 210 T400 120"/><path d="M0 300 Q140 250 230 270 T400 210"/></svg>
   <h1>Thormanby Hill</h1>
-  <p>The residents’ site for our 30 houses on Howth Head: find your neighbours’ doors, post to the noticeboard and keep the house and local details in one place.</p>
+  <p>The residents’ site for our 32 houses on Howth Head: find your neighbours’ doors, post to the noticeboard and keep the house and local details in one place.</p>
   <a class="go" href="#board" onclick="handleNavClick('board', event)">Open the noticeboard</a>
 </header>
 
 <main>
 
+  <!-- TAB 0: WELCOME / HOMEPAGE -->
+  <div id="tab-welcome" class="page-tab active-tab">
+    <section id="welcome">
+      <h2>Welcome home</h2>
+      <p class="lede">Thormanby Hill is a private enclave of 32 detached houses on Howth Head, built by Cosgrave, with a wooded park and playground at its centre. This site is for the people who live here.</p>
+      <div class="tiles">
+        <a class="tile" href="#estate" onclick="handleNavClick('estate', event)"><span class="material-symbols-outlined">map</span><b>Estate map</b><small>Find a house, see its plan</small></a>
+        <a class="tile" href="#board" onclick="handleNavClick('board', event)"><span class="material-symbols-outlined">forum</span><b>Noticeboard</b><small>Post and read neighbours’ notices</small></a>
+        <a class="tile" href="#calendar-sec" onclick="handleNavClick('calendar', event)"><span class="material-symbols-outlined">calendar_month</span><b>Calendar</b><small>Events and dates in one place</small></a>
+        <a class="tile" href="#local" onclick="handleNavClick('local', event)"><span class="material-symbols-outlined">home_pin</span><b>Your home &amp; Howth</b><small>Specs, walks, buses and schools</small></a>
+      </div>
+      <dl class="facts" style="margin-top:2rem">
+        <div><dt>32</dt><dd>detached five-bed houses</dd></div>
+        <div><dt>2.5 acres</dt><dd>of wooded park</dd></div>
+        <div><dt>A2</dt><dd>BER rating, nearly zero energy</dd></div>
+        <div><dt>6 &amp; H3</dt><dd>bus routes on Thormanby Road</dd></div>
+      </dl>
+    </section>
+  </div>
+
   <!-- TAB 1: ESTATE MAP -->
-  <div id="tab-estate" class="page-tab active-tab">
+  <div id="tab-estate" class="page-tab">
     <section id="estate">
       <h2>The estate</h2>
       <p class="lede">A sloping private enclave off Thormanby Road, built by Cosgrave, with a wooded park and a playground at its centre.</p>
       
       <dl class="facts">
-        <div><dt>30</dt><dd>detached five-bed houses</dd></div>
+        <div><dt>32</dt><dd>detached five-bed houses</dd></div>
         <div><dt>312 m²</dt><dd>per house (c.3,358 sq ft)</dd></div>
         <div><dt>2.5 acres</dt><dd>of wooded park</dd></div>
         <div><dt>A2</dt><dd>BER rating, nearly zero energy</dd></div>
@@ -388,7 +421,7 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
       <div class="mapwrap" style="margin-top:1.8rem">
         <div>
           <div class="map">
-            <svg viewBox="0 0 1040 590" role="img" aria-label="Schematic map of Thormanby Hill with house numbers 1 to 30">
+            <svg viewBox="0 0 1040 590" role="img" aria-label="Schematic map of Thormanby Hill with house numbers 1 to 32">
               <rect width="1040" height="590" fill="var(--bg)"/>
               <g transform="translate(0,110)">
                 <polygon points="110,96 248,-106 428,69 304,216" fill="var(--park)"/><text x="262" y="40" text-anchor="middle" font-family="Jost,sans-serif" font-size="13" fill="var(--hero)">Wooded park</text>
@@ -462,12 +495,14 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
     </section>
   </div>
 
-  <!-- TAB 4: YOUR HOME -->
-  <div id="tab-home" class="page-tab">
-    <section id="home">
-      <h2>Your home</h2>
-      <p class="lede">What the developer’s specification says is in every house. Check your own handover pack for the exact details.</p>
-      
+  <!-- TAB 4: YOUR HOME + AROUND HOWTH -->
+  <div id="tab-local" class="page-tab">
+    <section id="local">
+      <h2>Your home &amp; Howth</h2>
+      <p class="lede">What the developer’s specification says is in every house, and what’s on your doorstep. Check your own handover pack for exact details.</p>
+      <div class="jump"><a href="#home">Your home</a><a href="#around">Around Howth</a></div>
+
+      <h3 class="sub" id="home">Your home</h3>
       <div class="cols">
         <div>
           <h3>Heating and air</h3>
@@ -503,15 +538,9 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
           </ul>
         </div>
       </div>
-    </section>
-  </div>
 
-  <!-- TAB 5: AROUND HOWTH -->
-  <div id="tab-around" class="page-tab">
-    <section id="around">
-      <h2>Around Howth</h2>
+      <h3 class="sub" id="around">Around Howth</h3>
       <p class="lede">Everything below is walkable or a short ride from the estate.</p>
-      
       <div class="cols">
         <div>
           <h3>Walks</h3>
@@ -559,7 +588,12 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
   <nav class="liquid-nav">
     <div class="tab-indicator" id="tabIndicator"></div>
 
-    <button class="mobile-nav-item active" type="button" data-tab="estate">
+    <button class="mobile-nav-item active" type="button" data-tab="welcome">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </button>
+
+    <button class="mobile-nav-item" type="button" data-tab="estate">
       <span class="material-symbols-outlined">map</span>
       <span>Estate</span>
     </button>
@@ -574,14 +608,9 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
       <span>Calendar</span>
     </button>
 
-    <button class="mobile-nav-item" type="button" data-tab="home">
-      <span class="material-symbols-outlined">home</span>
-      <span>Home</span>
-    </button>
-
-    <button class="mobile-nav-item" type="button" data-tab="around">
+    <button class="mobile-nav-item" type="button" data-tab="local">
       <span class="material-symbols-outlined">explore</span>
-      <span>Howth</span>
+      <span>Local</span>
     </button>
   </nav>
 </div>
