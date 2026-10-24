@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thormanby Hill, Howth – Residents’ site</title>
+
+<!-- PWA & Mobile Meta Tags -->
+<meta name="theme-color" content="#0E2F4B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Thormanby Hill">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230E2F4B'/><text x='50' y='68' font-size='50' font-family='serif' text-anchor='middle' fill='%23F28C28'>TH</text></svg>">
+
+<!-- Material Symbols / Icons for Bottom Nav -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<!-- Embedded Web App Manifest -->
+<link rel="manifest" id="pwa-manifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg: #EEF4F7;
+  --ink: #0B1B2B;
+  --mute: #4A6375;
+  --card: #FFFFFF;
+  --line: #D0E1E9;
+  --sea: #1B6A8F;
+  --gorse: #F28C28;
+  --heather: #6A4C7D;
+  --park: #C4E2EE;
+  --road: #9FACB5;
+  --hero: #0E2F4B;
+  --err: #A12A2A;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font:400 1rem/1.65 Jost,system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;
+}
+
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif;font-weight:400;line-height:1.1;margin:0}
+a{color:var(--sea)}
+:focus-visible{outline:3px solid var(--gorse);outline-offset:2px}
+
+/* DESKTOP TOP NAV */
+nav.top-nav {
+  position:sticky;
+  top:env(safe-area-inset-top,0px);
+  z-index:5;
+  background:var(--hero);
+  color:#F2F5F8;
+  display:flex;
+  gap:1.2rem;
+  align-items:center;
+  padding:.7rem clamp(1rem,4vw,3rem);
+  overflow-x:auto;
+  white-space:nowrap;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+nav.top-nav b{font:500 1.35rem "Cormorant Garamond",Georgia,serif;margin-right:auto;letter-spacing:.04em;color:#FFF}
+nav.top-nav a{color:#D0E1E9;text-decoration:none;font-size:.95rem;opacity:.9;transition:color 0.2s}
+nav.top-nav a:hover{opacity:1;color:var(--gorse);text-decoration:underline}
+
+/* PWA Install Button */
+.install-btn{background:var(--gorse);color:var(--hero);border:none;padding:0.35rem 0.8rem;border-radius:3px;font-size:0.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:0.3rem;transition:background-color 0.15s, transform 0.15s}
+.install-btn:hover{background:#E07D1C;transform:scale(1.02)}
+
+/* HIDE TOP NAV ON MOBILE OR PWA STANDALONE MODE */
+@media (max-width: 768px), (display-mode: standalone) {
+  nav.top-nav {
+    display: none !important;
+  }
+  body {
+    padding-bottom: 90px; /* Space for bottom glass bar on mobile/PWA */
+  }
+}
+
+/* HERO HEADER */
+.hero{
+  background:linear-gradient(135deg, var(--hero) 0%, #082136 100%);
+  color:#F2F5F8;
+  padding:clamp(3rem,9vw,6rem) clamp(1rem,4vw,3rem) clamp(3rem,7vw,5rem);
+  position:relative;
+  overflow:hidden;
+  border-bottom:4px solid var(--gorse);
+}
+.hero h1{
+  font-size:clamp(3.4rem,11vw,8rem);
+  font-weight:300;
+  letter-spacing:.01em;
+  max-width:11ch;
+  color:#FFF;
+}
+.hero p{
+  max-width:34rem;
+  font-size:1.15rem;
+  margin:1.4rem 0 0;
+  color:#B0C8D6;
+  line-height:1.5;
+}
+.hero .go{
+  display:inline-block;
+  margin-top:1.8rem;
+  background:var(--gorse);
+  color:#0E2F4B;
+  padding:.7rem 1.4rem;
+  border-radius:2px;
+  text-decoration:none;
+  font-weight:600;
+  transition:transform 0.15s, background-color 0.15s;
+}
+.hero .go:hover{
+  background:#E07D1C;
+  transform:translateY(-1px);
+}
+.hero svg{position:absolute;right:-4%;bottom:-6%;width:min(60vw,640px);opacity:.18;pointer-events:none}
+
+/* COMPACT HEADER FOR MOBILE / PWA USERS */
+@media (max-width: 768px), (display-mode: standalone) {
+  .hero {
+    padding: 1.2rem 1rem;
+    border-bottom: 2px solid var(--gorse);
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+    max-width: none;
+    white-space: nowrap;
+  }
+  .hero p,
+  .hero .go,
+  .hero svg {
+    display: none !important; /* Strictly shrink header for mobile */
+  }
+}
+
+main{max-width:1100px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+
+/* MOBILE VS DESKTOP TAB SYSTEM */
+.page-tab {
+  display: block; /* Always visible on desktop */
+}
+
+@media (max-width: 768px), (display-mode: standalone) {
+  .page-tab {
+    display: none; /* Hide non-active tabs in mobile/PWA view */
+  }
+  .page-tab.active-tab {
+    display: block;
+    animation: fadeIn 0.25s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section{padding:clamp(2.5rem,6vw,4.5rem) 0;border-bottom:1px solid var(--line)}
+section>h2{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:.4rem;color:var(--hero)}
+.lede{color:var(--mute);max-width:40rem;margin:0 0 1.8rem}
+
+/* FACTS & MAP */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:0}
+.facts div{background:var(--card);padding:1rem 1.1rem}
+.facts dt{font:300 2.1rem/1 "Cormorant Garamond",Georgia,serif;color:var(--hero)}
+.facts dd{margin:.3rem 0 0;color:var(--mute);font-size:.9rem}
+.mapwrap{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;align-items:start}
+@media(max-width:800px){.mapwrap{grid-template-columns:1fr}}
+.map{background:var(--card);border:1px solid var(--line);overflow-x:auto}
+.map svg{display:block;width:100%;min-width:640px;height:auto}
+.h rect{fill:var(--card);stroke:var(--sea);stroke-width:2;cursor:pointer;transition:fill .15s}
+.h.pA rect{fill:#E2EFF5}.h.pB rect{fill:#A6D8EA}.h.pA1 rect{fill:#1B6A8F}.h.pO rect{fill:#8FA3B0}
+.h.pA1 text,.h.pO text{fill:#fff}
+.h:hover rect,.h:focus rect{fill:var(--park)}
+.h text{font:500 13px Jost,sans-serif;fill:var(--ink);text-anchor:middle;pointer-events:none}
+.h.show rect{stroke:var(--gorse);stroke-width:3}
+.h.sel rect{fill:var(--sea)}.h.sel text{fill:#fff}
+.h.mine rect{stroke:var(--heather);stroke-width:4}
+.panel{background:var(--card);border:1px solid var(--line);padding:1.3rem;border-radius:2px}
+.panel h3{font-size:2rem;color:var(--hero)}
+.panel p{margin:.6rem 0;color:var(--mute);font-size:0.95rem}
+.panel ul{padding-left:1.1rem;margin:.6rem 0;color:var(--ink);font-size:0.92rem}
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.85rem;color:var(--mute);margin-top:.7rem}
+.legend i{display:inline-block;width:.9rem;height:.9rem;border:3px solid;vertical-align:-2px;margin-right:.35rem}
+
+/* NOTICEBOARD */
+.board{display:grid;grid-template-columns:1fr 2fr;gap:1.4rem;align-items:start}
+@media(max-width:800px){.board{grid-template-columns:1fr}}
+form{background:var(--card);border:1px solid var(--line);padding:1.2rem;display:grid;gap:.8rem}
+label{display:grid;gap:.25rem;font-size:.9rem;color:var(--hero);font-weight:500}
+input,select,textarea,button{font:inherit;color:var(--ink)}
+input,select,textarea{background:var(--bg);border:1px solid var(--line);padding:.55rem .7rem;border-radius:2px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sea)}
+input[type=file]{padding:.4rem;background:#FFF}
+.btn{background:var(--hero);color:#fff;border:0;padding:.6rem 1.1rem;border-radius:2px;cursor:pointer;font-weight:500;transition:background-color 0.15s}
+.btn:hover{background:var(--sea)}
+.btn.alt{background:none;color:var(--sea);border:1px solid var(--sea)}
+.btn:disabled{opacity:.6;cursor:wait}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.chip{background:var(--card);border:1px solid var(--line);padding:.3rem .85rem;border-radius:99px;cursor:pointer;color:var(--hero);font-size:.88rem;transition:all 0.15s}
+.chip:hover{border-color:var(--sea);color:var(--sea)}
+.chip[aria-pressed="true"]{background:var(--hero);color:#FFF;border-color:var(--hero)}
+.post{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gorse);padding:1rem 1.2rem;margin-bottom:.8rem;box-shadow:0 1px 4px rgba(14,47,75,0.04)}
+.post h3{font-size:1.6rem;color:var(--hero)}
+.post small{color:var(--mute);font-weight:500;font-size:0.85rem}
+.post p{margin:.4rem 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:0.95rem}
+.post img{display:block;max-width:100%;max-height:320px;margin-top:.7rem;border-radius:2px;border:1px solid var(--line)}
+.post button{float:right;background:none;border:0;color:var(--mute);cursor:pointer;font-size:0.85rem}
+.post button:hover{color:var(--err);text-decoration:underline}
+.event-tag{display:inline-block;background:var(--bg);color:var(--sea);border:1px solid var(--line);padding:0.15rem 0.5rem;border-radius:3px;font-size:0.8rem;font-weight:600;margin-top:0.4rem}
+.note{font-size:.85rem;color:var(--mute);margin:0}
+.status{font-size:.9rem;margin:0;min-height:1.2em;color:var(--sea);font-weight:500}
+.status.err{color:var(--err)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* CALENDAR STYLES */
+.cal-wrapper{background:var(--card);border:1px solid var(--line);padding:1.2rem;border-radius:2px}
+.cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.cal-header h3{font-size:1.6rem;color:var(--hero)}
+.cal-nav{display:flex;gap:0.4rem}
+.cal-nav button{background:var(--bg);border:1px solid var(--line);padding:0.3rem 0.8rem;cursor:pointer;border-radius:2px;font-weight:600;color:var(--hero);font-size:0.85rem}
+.cal-grid{display:grid;grid-template-columns:repeat(7, 1fr);gap:2px;background:var(--line);border:1px solid var(--line)}
+.cal-day-head{background:var(--hero);color:#fff;text-align:center;font-size:0.75rem;padding:0.4rem 0;font-weight:600;text-transform:uppercase}
+.cal-cell{background:var(--card);min-height:75px;padding:0.35rem;font-size:0.8rem;position:relative;cursor:pointer;transition:background 0.15s}
+.cal-cell:hover{background:var(--bg)}
+.cal-cell.other-month{opacity:0.3;background:#fafafa}
+.cal-cell.today{background:#f0f8ff;font-weight:bold}
+.cal-cell.today .cal-num{color:var(--sea)}
+.cal-cell.selected{outline:2px solid var(--gorse);outline-offset:-2px;z-index:2}
+.cal-num{font-weight:600;color:var(--hero);margin-bottom:0.2rem;display:block}
+.cal-dots{display:flex;flex-direction:column;gap:2px}
+.cal-dot{background:var(--gorse);color:#0E2F4B;font-size:0.72rem;padding:1px 4px;border-radius:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+
+/* MODAL OVERLAY */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(14,47,75,0.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal-box{background:var(--card);padding:1.8rem;border-radius:4px;border:1px solid var(--line);width:90%;max-width:420px;box-shadow:0 10px 25px rgba(0,0,0,0.15)}
+.modal-box h3{font-size:1.8rem;color:var(--hero);margin-bottom:0.5rem}
+.modal-box p{color:var(--mute);font-size:0.95rem;margin-bottom:1.2rem}
+.modal-actions{display:flex;gap:0.8rem;justify-content:flex-end;margin-top:1.2rem}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem}
+.cols h3{font-size:1.7rem;margin-bottom:.4rem;color:var(--hero)}
+.cols ul{margin:0;padding-left:1.1rem;font-size:0.95rem}
+.cols li{margin:.25rem 0}
+footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-width:1100px;margin:0 auto;text-align:center}
+
+/* LIQUID GLASS BOTTOM NAV BAR (ONLY VISIBLE ON MOBILE OR PWA) */
+.mobile-nav-container {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 520px;
+  z-index: 999;
+  display: none; /* Default hidden on desktop */
+}
+
+@media (max-width: 768px), (display-mode: standalone) {
+  .mobile-nav-container {
+    display: block !important; /* ONLY VISIBLE ON MOBILE OR PWA */
+  }
+}
+
+.liquid-nav {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4px 6px;
+  
+  /* Liquid Glass Backdrop */
+  background: rgba(14, 47, 75, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.tab-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  background: rgba(242, 140, 40, 0.25);
+  border-radius: 999px;
+  border: 1px solid rgba(242, 140, 40, 0.6);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.mobile-nav-item {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #B0C8D6;
+  font-size: 10px;
+  font-weight: 500;
+  gap: 2px;
+  flex: 1;
+  padding: 6px 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+
+.mobile-nav-item .material-symbols-outlined {
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.mobile-nav-item:active {
+  transform: scale(0.92);
+}
+
+.mobile-nav-item.active {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.mobile-nav-item.active .material-symbols-outlined {
+  color: var(--gorse);
+  transform: translateY(-1px);
+}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- DESKTOP TOP NAVIGATION BAR -->
+<nav class="top-nav" aria-label="Main Navigation">
+  <b>Thormanby Hill</b>
+  <a href="#estate" onclick="handleNavClick('estate', event)">Estate</a>
+  <a href="#board" onclick="handleNavClick('board', event)">Noticeboard</a>
+  <a href="#calendar-sec" onclick="handleNavClick('calendar', event)">Calendar</a>
+  <a href="#home" onclick="handleNavClick('home', event)">Your home</a>
+  <a href="#around" onclick="handleNavClick('around', event)">Around Howth</a>
+  <button id="installAppBtn" class="install-btn" style="display:none;">📱 Install App</button>
+</nav>
+
+<!-- HERO HEADER -->
+<header class="hero">
+  <svg viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2"><path d="M0 250 Q60 120 140 150 T260 90 T400 40"/><path d="M0 280 Q100 190 190 210 T400 120"/><path d="M0 300 Q140 250 230 270 T400 210"/></svg>
+  <h1>Thormanby Hill</h1>
+  <p>The residents’ site for our 30 houses on Howth Head: find your neighbours’ doors, post to the noticeboard and keep the house and local details in one place.</p>
+  <a class="go" href="#board" onclick="handleNavClick('board', event)">Open the noticeboard</a>
+</header>
+
+<main>
+
+  <!-- TAB 1: ESTATE MAP -->
+  <div id="tab-estate" class="page-tab active-tab">
+    <section id="estate">
+      <h2>The estate</h2>
+      <p class="lede">A sloping private enclave off Thormanby Road, built by Cosgrave, with a wooded park and a playground at its centre.</p>
+      
+      <dl class="facts">
+        <div><dt>30</dt><dd>detached five-bed houses</dd></div>
+        <div><dt>312 m²</dt><dd>per house (c.3,358 sq ft)</dd></div>
+        <div><dt>2.5 acres</dt><dd>of wooded park</dd></div>
+        <div><dt>A2</dt><dd>BER rating, nearly zero energy</dd></div>
+      </dl>
+
+      <div class="mapwrap" style="margin-top:1.8rem">
+        <div>
+          <div class="map">
+            <svg viewBox="0 0 1040 590" role="img" aria-label="Schematic map of Thormanby Hill with house numbers 1 to 30">
+              <rect width="1040" height="590" fill="var(--bg)"/>
+              <g transform="translate(0,110)">
+                <polygon points="110,96 248,-106 428,69 304,216" fill="var(--park)"/><text x="262" y="40" text-anchor="middle" font-family="Jost,sans-serif" font-size="13" fill="var(--hero)">Wooded park</text>
+                <path d="M1030 418 C800 395 650 380 460 376 C340 378 260 395 207 391 C165 370 145 330 147 290 C147 230 160 195 193 160" fill="none" stroke="var(--road)" stroke-width="22" stroke-linecap="round"/>
+                <text x="700" y="399" text-anchor="middle" font-family="Jost,sans-serif" font-size="12" fill="var(--bg)">Thormanby Hill (road)</text>
+                <text x="1030" y="392" text-anchor="end" font-family="Jost,sans-serif" font-size="12" fill="var(--mute)">to Thormanby Road</text>
+                <circle cx="370" cy="342" r="14" fill="var(--gorse)" opacity=".8"/><text x="370" y="318" text-anchor="middle" font-family="Jost,sans-serif" font-size="12" fill="var(--mute)">Playground</text>
+                <g id="houses"></g>
+              </g>
+            </svg>
+          </div>
+          <div class="legend">
+            <span><i style="background:#E2EFF5;border-color:var(--sea)"></i>Plan A</span>
+            <span><i style="background:#1B6A8F;border-color:var(--sea)"></i>Plan A1</span>
+            <span><i style="background:#A6D8EA;border-color:var(--sea)"></i>Plan B</span>
+            <span><i style="background:#8FA3B0;border-color:var(--sea)"></i>Other</span>
+            <span><i style="border-color:var(--gorse)"></i>Showhouse (23)</span>
+            <span><i style="border-color:var(--heather)"></i>Your house</span>
+            <span>Schematic, not to scale</span>
+          </div>
+        </div>
+        <aside class="panel" id="panel" aria-live="polite"></aside>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 2: NOTICEBOARD -->
+  <div id="tab-board" class="page-tab">
+    <section id="board">
+      <h2>Noticeboard</h2>
+      <p class="lede">Lost cats, spare tickets, working bees, a ladder to lend. Select a date when posting to pin it to the estate calendar.</p>
+      
+      <div class="board">
+        <form id="f">
+          <label>Your name or house number<select id="fh" required></select></label>
+          <label>Type<select id="fc"><option>Notice</option><option>For sale or free</option><option>Lost and found</option><option>Event</option><option>Help wanted</option></select></label>
+          <label>Event / Target Date (optional)<input id="fdate" type="date"></label>
+          <label>Title<input id="ft" maxlength="80" required></label>
+          <label>Message<textarea id="fm" rows="4" maxlength="600" required></textarea></label>
+          <label>Photo (optional)<input id="fi" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+          <div class="hp" aria-hidden="true"><label>Leave empty<input id="fhp" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn" id="fsub" type="submit">Post to noticeboard</button>
+          <p class="status" id="fst" role="status" aria-live="polite"></p>
+          <p class="note">Posts are public. You can delete your own posts from the browser you posted with.</p>
+        </form>
+
+        <div>
+          <div class="chips" id="chips"></div>
+          <div id="posts"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 3: CALENDAR -->
+  <div id="tab-calendar" class="page-tab">
+    <section id="calendar-sec">
+      <h2>Community Calendar</h2>
+      <p class="lede">Click any date to filter noticeboard events or view scheduled estate events.</p>
+      <div class="cal-wrapper">
+        <div class="cal-header">
+          <h3 id="calMonthTitle">Calendar</h3>
+          <div class="cal-nav">
+            <button type="button" id="calPrev">&larr;</button>
+            <button type="button" id="calToday">Today</button>
+            <button type="button" id="calNext">&rarr;</button>
+          </div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 4: YOUR HOME -->
+  <div id="tab-home" class="page-tab">
+    <section id="home">
+      <h2>Your home</h2>
+      <p class="lede">What the developer’s specification says is in every house. Check your own handover pack for the exact details.</p>
+      
+      <div class="cols">
+        <div>
+          <h3>Heating and air</h3>
+          <ul>
+            <li>A-rated gas condensing boiler with two heating zones and thermostatic radiator valves</li>
+            <li>Heat recovery ventilation that recovers about 90% of the heat from expelled air; the unit is in the landing hotpress</li>
+            <li>Solar photovoltaic panels, argon-filled low-E windows and high insulation</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Services enclosure</h3>
+          <ul>
+            <li>Boiler, water booster pump and water tank sit in an enclosure outside the house</li>
+            <li>Service work happens outside, so a tank leak won’t flood the house</li>
+            <li>Designed so the energy source can be swapped later without replacing the unit</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Fittings and cover</h3>
+          <ul>
+            <li>Residence 9 windows and Bergerac painted internal doors</li>
+            <li>Sealed gas fires, intruder alarm, Cat 5 wiring and garden lighting wiring</li>
+            <li>Steel garden shed with light and sockets</li>
+            <li>10-year HomeBond guarantee</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Gardens and parking</h3>
+          <ul>
+            <li>Gardens of roughly 0.27 to 0.35 acres, designed by Cunnane Stratton Reynolds</li>
+            <li>Patio of about 60 m² off the living area</li>
+            <li>Private drive with generous parking</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 5: AROUND HOWTH -->
+  <div id="tab-around" class="page-tab">
+    <section id="around">
+      <h2>Around Howth</h2>
+      <p class="lede">Everything below is walkable or a short ride from the estate.</p>
+      
+      <div class="cols">
+        <div>
+          <h3>Walks</h3>
+          <ul>
+            <li>Tramway Loop Walk, linking to the DART station and the Cliff walks via the Summit</li>
+            <li>Cliff Loop and coastal walks</li>
+            <li>Howth Head Special Protection Area</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Getting about</h3>
+          <ul>
+            <li>Bus routes 6 and H3 stop on Thormanby Road</li>
+            <li>Howth DART station</li>
+            <li>Dublin City Centre and the airport are easily reached</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Schools</h3>
+          <ul>
+            <li>Primary: Scoil Mhuire, St Fintan’s NS, Burrow School, Sutton Park</li>
+            <li>Secondary: St Fintan’s High School (boys), Santa Sabina (girls), Sutton Park</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Clubs and pubs</h3>
+          <ul>
+            <li>Howth Yacht Club and Sutton Dinghy Club</li>
+            <li>Howth, Sutton and Deerpark golf clubs</li>
+            <li>The Summit Inn, a few minutes away</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  An unofficial site run by residents. Not affiliated with Cosgrave or Hooke &amp; MacDonald. Estate facts come from the Thormanby Hill sales brochure and may differ from your own house.
+</footer>
+
+<!-- LIQUID GLASS BOTTOM NAVIGATION BAR (ONLY VISIBLE ON MOBILE OR PWA) -->
+<div class="mobile-nav-container">
+  <nav class="liquid-nav">
+    <div class="tab-indicator" id="tabIndicator"></div>
+
+    <button class="mobile-nav-item active" type="button" data-tab="estate">
+      <span class="material-symbols-outlined">map</span>
+      <span>Estate</span>
+    </button>
+
+    <button class="mobile-nav-item" type="button" data-tab="board">
+      <span class="material-symbols-outlined">forum</span>
+      <span>Notices</span>
+    </button>
+
+    <button class="mobile-nav-item" type="button" data-tab="calendar">
+      <span class="material-symbols-outlined">calendar_month</span>
+      <span>Calendar</span>
+    </button>
+
+    <button class="mobile-nav-item" type="button" data-tab="home">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </button>
+
+    <button class="mobile-nav-item" type="button" data-tab="around">
+      <span class="material-symbols-outlined">explore</span>
+      <span>Howth</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Name Input Modal -->
+<div class="modal-overlay" id="nameModal">
+  <div class="modal-box">
+    <h3>Enter Your Name</h3>
+    <p>Please enter your name or preferred resident title to display on your posts.</p>
+    <input type="text" id="customNameInput" placeholder="e.g. Sarah & Mark" maxlength="40">
+    <div class="modal-actions">
+      <button type="button" class="btn alt" id="closeModalBtn">Cancel</button>
+      <button type="button" class="btn" id="saveNameBtn">Save Name</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inline Web App Manifest Script -->
+<script>
+(function(){
+  var manifestObj = {
+    name: "Thormanby Hill Residents",
+    short_name: "Thormanby",
+    start_url: "./",
+    display: "standalone",
+    background_color: "#EEF4F7",
+    theme_color: "#0E2F4B",
+    icons: [
+      {
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='35' fill='%230E2F4B'/><text x='96' y='125' font-size='90' font-family='serif' text-anchor='middle' fill='%23F28C28'>TH</text></svg>",
+        sizes: "192x192",
+        type: "image/svg+xml"
+      },
+      {
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='90' fill='%230E2F4B'/><text x='256' y='340' font-size='240' font-family='serif' text-anchor='middle' fill='%23F28C28'>TH</text></svg>",
+        sizes: "512x512",
+        type: "image/svg+xml"
+      }
+    ]
+  };
+  var manifestStr = JSON.stringify(manifestObj);
+  var blob = new Blob([manifestStr], {type: 'application/json'});
+  document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
+})();
+</script>
+
+<!-- Mobile/PWA Tab Switching & Navigation Logic -->
+<script>
+const navItems = document.querySelectorAll('.mobile-nav-item');
+const indicator = document.getElementById('tabIndicator');
+
+function isAppMode() {
+  return window.innerWidth <= 768 || window.matchMedia('(display-mode: standalone)').matches;
+}
+
+function updateIndicator(activeTab) {
+  if (!activeTab || !indicator) return;
+  indicator.style.left = `${activeTab.offsetLeft}px`;
+  indicator.style.width = `${activeTab.offsetWidth}px`;
+}
+
+function switchMobileTab(tabId) {
+  if (isAppMode()) {
+    document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active-tab'));
+    const targetTab = document.getElementById(`tab-${tabId}`);
+    if (targetTab) targetTab.classList.add('active-tab');
+  }
+
+  // Update Bottom Nav state
+  navItems.forEach(item => {
+    if (item.dataset.tab === tabId) {
+      item.classList.add('active');
+      updateIndicator(item);
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  if (isAppMode()) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function handleNavClick(tabId, ev) {
+  if (isAppMode()) {
+    if (ev) ev.preventDefault();
+    switchMobileTab(tabId);
+  }
+}
+
+// Initial positioning on load
+window.addEventListener('load', () => {
+  const activeTab = document.querySelector('.mobile-nav-item.active');
+  if (activeTab) updateIndicator(activeTab);
+});
+
+// Click handlers for bottom bar items
+navItems.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    switchMobileTab(target);
+  });
+});
+
+window.addEventListener('resize', () => {
+  const currentActive = document.querySelector('.mobile-nav-item.active');
+  if (currentActive) updateIndicator(currentActive);
+});
+</script>
+
+<!-- Inline Service Worker Registration & PWA Install Logic -->
+<script>
+if ('serviceWorker' in navigator) {
+  var swCode = `
+    const CACHE_NAME = 'thormanby-pwa-v2';
+    self.addEventListener('install', e => {
+      e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./'])));
+      self.skipWaiting();
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+    });
+  `;
+  var swBlob = new Blob([swCode], { type: 'application/javascript' });
+  navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+}
+
+var deferredPrompt;
+var installBtn = document.getElementById('installAppBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (installBtn) installBtn.style.display = 'inline-flex';
+});
+
+if (installBtn) {
+  installBtn.addEventListener('click', () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      });
+    }
+  });
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+(function(){
+var PN={A:"A",A1:"A1",B:"B",O:"“Other” (ask the agent for its floor plan)"};
+var H=[[1,957,358],[2,893,346],[3,833,340],[4,769,339],[5,712,342],[6,655,346],[7,600,339],[8,543,331],[9,479,335],
+[14,892,452],[15,834,448],[16,781,450],[17,729,452],[18,675,452],[19,621,450],[20,564,444],[21,506,437],[22,452,434],[23,394,437,"B"],
+["24a",310,437,"B"],[24,253,453,"B"],[25,204,436,"B"],[26,163,404,"B"],[27,129,366,"B"],[28,100,307,"A"],[29,93,255,"A"],[30,112,196,"A"],
+["13a",240,198,"O"],[13,200,232,"B"],[12,217,300,"A"],[11,259,335,"A"],[10,319,343,"A1"]];
+var NS="http://www.w3.org/2000/svg",g=document.getElementById("houses"),panel=document.getElementById("panel");
+var sel=null,mine=null,customName="";
+
+try{
+  mine=localStorage.getItem("th-mine");
+  customName=localStorage.getItem("th-custom-name")||"";
+}catch(e){}
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+
+function draw(){
+ if (!g) return;
+ g.innerHTML="";
+ H.forEach(function(h){
+  var e=document.createElementNS(NS,"g");
+  e.setAttribute("class","h"+(h[3]?" p"+h[3]:"")+(h[0]==23?" show":"")+(String(h[0])===sel?" sel":"")+(String(h[0])===mine?" mine":""));
+  e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label","House "+h[0]);
+  e.innerHTML='<rect x="'+(h[1]-19)+'" y="'+(h[2]-14)+'" width="38" height="28" rx="2"/><text x="'+h[1]+'" y="'+(h[2]+5)+'">'+h[0]+'</text>';
+  var go=function(){sel=String(h[0]);draw();info()};
+  e.addEventListener("click",go);
+  e.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go()}});
+  g.appendChild(e);
+ });
+}
+
+function info(){
+ if (!panel) return;
+ if(!sel){panel.innerHTML='<h3>Pick a house</h3><p>Select a number on the map to see its details, or mark your own house so the noticeboard knows who’s posting.</p>';return}
+ var isMine=sel===mine,show=sel==="23",pl=(H.filter(function(h){return String(h[0])===sel})[0]||[])[3];
+ panel.innerHTML='<h3>House '+esc(sel)+'</h3>'+(show?'<p><b>The showhouse.</b> Where the finishes in the brochure were photographed.</p>':'')+
+ '<ul><li>Five bedrooms, four en-suite</li><li>About 312 m² (3,358 sq ft)</li><li>Kitchen, dining and family room of 11.1 m × 5.05 m</li><li>Study, lounge and living room on the ground floor</li></ul>'+
+ '<p>'+(pl?'<b>Plan '+PN[pl]+'.</b> ':'')+'Floor plans A and B are in the brochure.</p>'+
+ '<button class="btn'+(isMine?' alt':'')+'" id="mk">'+(isMine?'This is no longer my house':'This is my house')+'</button>';
+ document.getElementById("mk").onclick=function(){
+  mine=isMine?null:sel;
+  try{mine?localStorage.setItem("th-mine",mine):localStorage.removeItem("th-mine")}catch(e){}
+  rebuildDropdown();
+  draw();info();
+ };
+}
+
+var fh=document.getElementById("fh");
+var modal=document.getElementById("nameModal");
+var nameInput=document.getElementById("customNameInput");
+
+function rebuildDropdown(){
+ if (!fh) return;
+ var houseList = H.map(function(h){return h[0]}).sort(function(a,b){return parseInt(a)-parseInt(b)||String(a).localeCompare(String(b))});
+ var html = '<option value="">Choose identity...</option>';
+ html += '<option value="__CUSTOM__">➕ Enter custom name...</option>';
+ if(customName){
+  html += '<option value="'+esc(customName)+'">'+esc(customName)+(mine?' (House '+esc(mine)+')':'')+'</option>';
+ }
+ houseList.forEach(function(n){
+  var val = "House " + n;
+  html += '<option value="'+val+'">'+val+'</option>';
+ });
+ fh.innerHTML = html;
+ 
+ if(customName){
+  fh.value = customName;
+ } else if(mine){
+  fh.value = "House " + mine;
+ }
+}
+
+if (fh) {
+  fh.addEventListener("change", function(){
+   if(fh.value === "__CUSTOM__"){
+    nameInput.value = customName;
+    modal.classList.add("active");
+    nameInput.focus();
+   }
+  });
+}
+
+if (document.getElementById("closeModalBtn")) {
+  document.getElementById("closeModalBtn").onclick = function(){
+   modal.classList.remove("active");
+   rebuildDropdown();
+  };
+}
+
+if (document.getElementById("saveNameBtn")) {
+  document.getElementById("saveNameBtn").onclick = function(){
+   var val = nameInput.value.trim();
+   if(val){
+    customName = val;
+    try{localStorage.setItem("th-custom-name", customName)}catch(e){}
+   } else {
+    customName = "";
+    try{localStorage.removeItem("th-custom-name")}catch(e){}
+   }
+   modal.classList.remove("active");
+   rebuildDropdown();
+  };
+}
+
+rebuildDropdown();
+
+/* ====== SUPABASE & CALENDAR LOGIC ====== */
+var SUPABASE_URL="https://qjknkubntsqkziqczmge.supabase.co";
+var SUPABASE_ANON_KEY="sb_publishable_OHX_AwdftyD7VY1kHJBWIw_rrJ2CSug";
+var BUCKET="notice-images";
+
+var CATS=["All","Notice","For sale or free","Lost and found","Event","Help wanted"],cat="All",posts=[];
+var MINE_KEY="nb-mine-v1",minePosts={};
+try{minePosts=JSON.parse(localStorage.getItem(MINE_KEY)||"{}")}catch(e){}
+function saveMinePosts(){try{localStorage.setItem(MINE_KEY,JSON.stringify(minePosts))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function status(msg,err){var s=$("fst");if(!s)return;s.textContent=msg||"";s.className="status"+(err?" err":"")}
+function safeUrl(u){return /^https:\/\//.test(u||"")?u:""}
+
+function safeFetch(url,opts){
+ opts=Object.assign({},opts||{});
+ if(typeof Headers!=="undefined"&&opts.headers instanceof Headers){var h={};opts.headers.forEach(function(v,k){h[k]=v});opts.headers=h}
+ delete opts.signal;
+ return fetch(String(url&&url.url||url),opts);
+}
+
+var db=null;
+if(window.supabase&&SUPABASE_URL.indexOf("YOUR-PROJECT")===-1){
+ db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{
+  global:{fetch:safeFetch},
+  auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}
+ });
+}
+
+function token(){var a=new Uint8Array(16);crypto.getRandomValues(a);return Array.prototype.map.call(a,function(b){return("0"+b.toString(16)).slice(-2)}).join("")}
+
+function shrink(file){
+ return new Promise(function(resolve,reject){
+  if(file.type==="image/gif"&&file.size<=5*1024*1024){return resolve(file)}
+  var img=new Image(),url=URL.createObjectURL(file);
+  img.onload=function(){
+   var M=1280,r=Math.min(1,M/Math.max(img.width,img.height)),c=document.createElement("canvas");
+   c.width=Math.round(img.width*r);c.height=Math.round(img.height*r);
+   var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);
+   URL.revokeObjectURL(url);
+   c.toBlob(function(b){b?resolve(b):reject(new Error("Could not process image"))},"image/jpeg",.82);
+  };
+  img.onerror=function(){URL.revokeObjectURL(url);reject(new Error("That file doesn't look like an image"))};
+  img.src=url;
+ });
+}
+
+/* Calendar Engine */
+var calDate = new Date();
+var selectedCalDateStr = null;
+
+function renderCalendar(){
+  var year = calDate.getFullYear();
+  var month = calDate.getMonth();
+  var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  
+  if ($("calMonthTitle")) $("calMonthTitle").textContent = monthNames[month] + " " + year;
+  
+  var firstDay = new Date(year, month, 1).getDay();
+  var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var prevMonthDays = new Date(year, month, 0).getDate();
+  
+  var grid = $("calGrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  
+  var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  dayNames.forEach(function(d){
+    var h = document.createElement("div");
+    h.className = "cal-day-head";
+    h.textContent = d;
+    grid.appendChild(h);
+  });
+  
+  var today = new Date();
+  var todayStr = today.toISOString().slice(0,10);
+  
+  // Previous Month Padding
+  for(var i = firstDay - 1; i >= 0; i--){
+    var cell = document.createElement("div");
+    cell.className = "cal-cell other-month";
+    cell.innerHTML = '<span class="cal-num">' + (prevMonthDays - i) + '</span>';
+    grid.appendChild(cell);
+  }
+  
+  // Current Month Days
+  for(var day = 1; day <= daysInMonth; day++){
+    var dStr = year + "-" + String(month + 1).padStart(2, '0') + "-" + String(day).padStart(2, '0');
+    var cell = document.createElement("div");
+    cell.className = "cal-cell" + (dStr === todayStr ? " today" : "") + (dStr === selectedCalDateStr ? " selected" : "");
+    cell.dataset.date = dStr;
+    
+    var dayPosts = posts.filter(function(p){
+      if(!p.message) return false;
+      var match = p.message.match(/\[Event Date: (\d{4}-\d{2}-\d{2})\]/);
+      return match && match[1] === dStr;
+    });
+    
+    var dotsHtml = dayPosts.map(function(p){
+      return '<div class="cal-dot" title="'+esc(p.title)+'">'+esc(p.title)+'</div>';
+    }).join("");
+    
+    cell.innerHTML = '<span class="cal-num">' + day + '</span><div class="cal-dots">' + dotsHtml + '</div>';
+    
+    cell.onclick = (function(dateString){
+      return function(){
+        selectedCalDateStr = (selectedCalDateStr === dateString) ? null : dateString;
+        if ($("fdate")) $("fdate").value = selectedCalDateStr || "";
+        renderCalendar();
+        render();
+        switchMobileTab('board');
+      };
+    })(dStr);
+    
+    grid.appendChild(cell);
+  }
+}
+
+if ($("calPrev")) $("calPrev").onclick = function(){ calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); };
+if ($("calNext")) $("calNext").onclick = function(){ calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); };
+if ($("calToday")) $("calToday").onclick = function(){ calDate = new Date(); renderCalendar(); };
+
+function load(){
+ if(!db){
+  if ($("posts")) $("posts").innerHTML='<p class="lede">Noticeboard not configured: Supabase details missing.</p>';
+  return;
+ }
+ return db.from("notices").select("id,created_at,who,category,title,message,image_url").order("created_at",{ascending:false}).limit(100)
+ .then(function(r){
+   if(r.error){status("Couldn't load posts: "+r.error.message,true);return}
+   posts=r.data||[];
+   renderCalendar();
+   render();
+ });
+}
+
+function render(){
+ var chips=$("chips"); if(!chips) return;
+ chips.innerHTML="";
+ CATS.forEach(function(c){
+   var b=document.createElement("button");
+   b.type="button";
+   b.className="chip";
+   b.textContent=c;
+   b.setAttribute("aria-pressed",c===cat);
+   b.onclick=function(){cat=c;render()};
+   chips.appendChild(b);
+ });
+
+ var list=posts.filter(function(p){
+   var matchesCat = (cat==="All"||p.category===cat);
+   if(!selectedCalDateStr) return matchesCat;
+   var match = p.message ? p.message.match(/\[Event Date: (\d{4}-\d{2}-\d{2})\]/) : null;
+   return matchesCat && (match && match[1] === selectedCalDateStr);
+ });
+
+ var postsEl = $("posts"); if(!postsEl) return;
+ postsEl.innerHTML=list.length?list.map(function(p){
+  var u=safeUrl(p.image_url);
+  var cleanMsg = p.message.replace(/\[Event Date: \d{4}-\d{2}-\d{2}\]/g, '').trim();
+  var dateMatch = p.message.match(/\[Event Date: (\d{4}-\d{2}-\d{2})\]/);
+  var eventBadge = dateMatch ? '<div class="event-tag">📅 Event Date: ' + dateMatch[1] + '</div>' : '';
+
+  return '<article class="post">'+(minePosts[p.id]?'<button type="button" data-d="'+p.id+'" aria-label="Delete post">Delete</button>':'')+
+   '<small>'+esc(p.category)+' · '+esc(p.who)+' · '+esc(p.created_at.slice(0,10))+'</small><h3>'+esc(p.title)+'</h3><p>'+esc(cleanMsg)+'</p>'+
+   eventBadge +
+   (u?'<a href="'+esc(u)+'" target="_blank" rel="noopener"><img src="'+esc(u)+'" alt="Photo for: '+esc(p.title)+'" loading="lazy"></a>':'')+'</article>'}).join(""):
+  '<p class="lede">Nothing here yet. ' + (selectedCalDateStr ? 'No posts on ' + selectedCalDateStr + '.' : 'Be the first to post in “'+esc(cat)+'”.') + '</p>';
+
+ Array.prototype.forEach.call(document.querySelectorAll("[data-d]"),function(b){
+  b.onclick=function(){
+   if(!confirm("Delete this post?"))return;
+   var id=b.dataset.d;
+   db.rpc("delete_notice",{p_id:Number(id),p_token:minePosts[id]}).then(function(r){
+    if(r.error||r.data===false){status("Couldn't delete that post.",true);return}
+    delete minePosts[id];saveMinePosts();load();
+   });
+  };
+ });
+}
+
+if ($("f")) {
+  $("f").onsubmit=function(e){
+   e.preventDefault();
+   if(!db){status("Noticeboard database not configured.",true);return}
+   if($("fhp").value)return;
+   if(!fh.value || fh.value === "__CUSTOM__"){status("Please select a valid house number or enter your name.", true); return;}
+   
+   var form=this,btn=$("fsub"),file=$("fi").files[0],tok=token();
+   var eventDate = $("fdate").value;
+   var rawMsg = $("fm").value.trim();
+   var fullMsg = eventDate ? rawMsg + "\n\n[Event Date: " + eventDate + "]" : rawMsg;
+
+   btn.disabled=true;status(file?"Uploading photo…":"Posting…");
+   var up=file?shrink(file).then(function(blob){
+     var path=Date.now()+"-"+tok.slice(0,8)+(blob.type==="image/gif"?".gif":".jpg");
+     return db.storage.from(BUCKET).upload(path,blob,{contentType:blob.type,cacheControl:"31536000"}).then(function(r){
+      if(r.error)throw r.error;
+      return db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+     });
+    }):Promise.resolve(null);
+    
+   up.then(function(imageUrl){
+    return db.from("notices").insert({who:fh.value,category:$("fc").value,title:$("ft").value.trim(),message:fullMsg,image_url:imageUrl,owner_token:tok}).select("id").single();
+   }).then(function(r){
+    if(r.error)throw r.error;
+    minePosts[r.data.id]=tok;saveMinePosts();
+    var selHouse=fh.value;form.reset();if(selHouse)fh.value=selHouse;cat="All";status("Posted.");return load();
+   }).catch(function(err){status("Couldn't post: "+(err.message||err),true)})
+   .then(function(){btn.disabled=false});
+  };
+}
+
+draw();info();load();
+if(db)setInterval(load,60000);
+})();
+</script>
+</body>
+</html>
