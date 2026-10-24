@@ -128,6 +128,15 @@ nav.top-nav a:hover{opacity:1;color:var(--gorse);text-decoration:underline}
 
 
 /* HOMEPAGE TILES + MERGED LOCAL PAGE */
+.install-card{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--sea);padding:1rem 1.2rem;margin-top:1.4rem}
+.install-card b{display:block;font:500 1.4rem/1.1 "Cormorant Garamond",Georgia,serif;color:var(--hero)}
+.install-card small{color:var(--mute);font-size:.9rem}
+.install-steps{margin:.2rem 0 0;padding-left:1.2rem;color:var(--ink);font-size:.95rem}
+.install-steps li{margin:.45rem 0}
+.install-who{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:.15rem .8rem;font-size:.8rem;color:var(--mute);margin-bottom:.8rem}
+.install-other{margin-top:1rem;font-size:.85rem;color:var(--mute)}
+.install-other a{cursor:pointer}
+
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:1.4rem}
 .tile{display:flex;flex-direction:column;gap:.25rem;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gorse);padding:1.1rem 1.2rem;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s}
 .tile:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,47,75,.12)}
@@ -372,7 +381,7 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
   <a href="#board" onclick="handleNavClick('board', event)">Noticeboard</a>
   <a href="#calendar-sec" onclick="handleNavClick('calendar', event)">Calendar</a>
   <a href="#local" onclick="handleNavClick('local', event)">Your home &amp; Howth</a>
-  <button id="installAppBtn" class="install-btn" style="display:none;">📱 Install App</button>
+  <button type="button" class="install-btn install-trigger">📱 Install App</button>
 </nav>
 
 <!-- HERO HEADER -->
@@ -395,6 +404,10 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
         <a class="tile" href="#board" onclick="handleNavClick('board', event)"><span class="material-symbols-outlined">forum</span><b>Noticeboard</b><small>Post and read neighbours’ notices</small></a>
         <a class="tile" href="#calendar-sec" onclick="handleNavClick('calendar', event)"><span class="material-symbols-outlined">calendar_month</span><b>Calendar</b><small>Events and dates in one place</small></a>
         <a class="tile" href="#local" onclick="handleNavClick('local', event)"><span class="material-symbols-outlined">home_pin</span><b>Your home &amp; Howth</b><small>Specs, walks, buses and schools</small></a>
+      </div>
+      <div class="install-card">
+        <div><b>Install the app</b><small>Add Thormanby Hill to your home screen or desktop for one-tap access.</small></div>
+        <button class="btn install-trigger" type="button">Install</button>
       </div>
       <dl class="facts" style="margin-top:2rem">
         <div><dt>32</dt><dd>detached five-bed houses</dd></div>
@@ -421,7 +434,7 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
       <div class="mapwrap" style="margin-top:1.8rem">
         <div>
           <div class="map">
-            <svg viewBox="0 0 1040 590" role="img" aria-label="Schematic map of Thormanby Hill with house numbers 1 to 32">
+            <svg viewBox="0 0 1040 590" role="img" aria-label="Schematic map of Thormanby Hill with house numbers 1 to 30, including 13a and 24a">
               <rect width="1040" height="590" fill="var(--bg)"/>
               <g transform="translate(0,110)">
                 <polygon points="110,96 248,-106 428,69 304,216" fill="var(--park)"/><text x="262" y="40" text-anchor="middle" font-family="Jost,sans-serif" font-size="13" fill="var(--hero)">Wooded park</text>
@@ -615,6 +628,20 @@ footer{padding:2rem clamp(1rem,4vw,3rem);color:var(--mute);font-size:.85rem;max-
   </nav>
 </div>
 
+<!-- Install Instructions Modal -->
+<div class="modal-overlay" id="installModal" role="dialog" aria-modal="true" aria-labelledby="installTitle">
+  <div class="modal-box">
+    <h3 id="installTitle">Install Thormanby Hill</h3>
+    <span class="install-who" id="installWho"></span>
+    <ol class="install-steps" id="installSteps"></ol>
+    <p class="install-other" id="installOther"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn alt" id="installClose">Close</button>
+      <button type="button" class="btn" id="installNow" style="display:none">Install now</button>
+    </div>
+  </div>
+</div>
+
 <!-- Name Input Modal -->
 <div class="modal-overlay" id="nameModal">
   <div class="modal-box">
@@ -738,28 +765,80 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
 }
 
-var deferredPrompt;
-var installBtn = document.getElementById('installAppBtn');
+var deferredPrompt=null;
+var isInstalled=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+var triggers=document.querySelectorAll('.install-trigger');
+function hideTriggers(){triggers.forEach(function(t){t.style.display='none'});var c=document.querySelector('.install-card');if(c)c.style.display='none'}
+if(isInstalled)hideTriggers();
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (installBtn) installBtn.style.display = 'inline-flex';
-});
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e});
+window.addEventListener('appinstalled',function(){deferredPrompt=null;hideTriggers();closeInstall()});
 
-if (installBtn) {
-  installBtn.addEventListener('click', () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          installBtn.style.display = 'none';
-        }
-        deferredPrompt = null;
-      });
-    }
-  });
+function detect(){
+  var ua=navigator.userAgent,
+  ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),
+  android=/Android/.test(ua),
+  inApp=/FBAN|FBAV|Instagram|Snapchat|TikTok|MicroMessenger|Line\//.test(ua),
+  br='other';
+  if(/EdgA|EdgiOS|Edg\//.test(ua))br='edge';
+  else if(/OPR\/|OPT\/|Opera/.test(ua))br='opera';
+  else if(/SamsungBrowser/.test(ua))br='samsung';
+  else if(/FxiOS|Firefox/.test(ua))br='firefox';
+  else if(/CriOS|Chrome/.test(ua))br='chrome';
+  else if(/Safari/.test(ua))br='safari';
+  var os=ios?'ios':android?'android':'desktop';
+  return {os:os,br:br,inApp:inApp};
 }
+var NAMES={chrome:'Chrome',edge:'Edge',safari:'Safari',firefox:'Firefox',samsung:'Samsung Internet',opera:'Opera',other:'your browser'};
+var OS_NAMES={ios:'iPhone / iPad',android:'Android',desktop:'Computer'};
+
+function stepsFor(d){
+  if(d.inApp)return {t:['Tap the ••• or ⋮ menu in the corner of this screen.','Choose “Open in browser” (or “Open in Safari / Chrome”).','Then tap Install again to see the steps for your browser.']};
+  if(d.os==='ios'){
+    if(d.br==='safari')return {t:['Tap the Share button (a square with an arrow). On newer iOS it may be under the ••• menu.','Scroll down and tap “Add to Home Screen”.','Tap “Add” in the top right.']};
+    if(d.br==='chrome')return {t:['Tap the Share button in the address bar (top right).','Scroll down and tap “Add to Home Screen”.','Tap “Add”.']};
+    if(d.br==='edge')return {t:['Tap the ••• menu at the bottom of the screen.','Tap “Share”, then “Add to Home Screen” (or “Add to phone”).','Tap “Add”.']};
+    return {t:['Open this page in Safari (copy the link and paste it there).','Tap the Share button, then “Add to Home Screen”.','Tap “Add”.']};
+  }
+  if(d.os==='android'){
+    if(d.br==='samsung')return {t:['Tap the ≡ menu at the bottom right.','Tap “Add page to”, then “Home screen”.','Tap “Add”.']};
+    if(d.br==='firefox')return {t:['Tap the ⋮ menu (top right or bottom right).','Tap “Install”.','Tap “Add” to confirm.']};
+    if(d.br==='edge')return {t:['Tap the ≡ menu at the bottom of the screen.','Tap “Add to phone”.','Tap “Install”.']};
+    if(d.br==='chrome')return {t:['Tap the ⋮ menu in the top right.','Tap “Install app” (or “Add to Home screen”).','Tap “Install” to confirm.']};
+    return {t:['Open this page in Chrome.','Tap the ⋮ menu, then “Install app” or “Add to Home screen”.','Tap “Install” to confirm.']};
+  }
+  if(d.br==='safari')return {t:['In the menu bar choose File, then “Add to Dock” (needs macOS Sonoma or later).','Tap Add.','Open it any time from your Dock.']};
+  if(d.br==='firefox')return {t:['Firefox on computers can’t install web apps.','Open this page in Chrome or Edge instead.','Then click the install icon at the right of the address bar.']};
+  if(d.br==='edge')return {t:['Click the ⋯ menu in the top right.','Choose Apps, then “Install this site as an app”.','Click Install.']};
+  if(d.br==='chrome'||d.br==='opera')return {t:['Look for the install icon (a screen with a down arrow) at the right of the address bar and click it.','Or open the ⋮ menu and choose “Cast, save and share”, then “Install page as app”.','Click Install.']};
+  return {t:['Open this page in Chrome or Edge.','Click the install icon at the right of the address bar.','Click Install.']};
+}
+
+var modal=document.getElementById('installModal');
+function openInstall(){
+  var d=detect(),r=stepsFor(d);
+  document.getElementById('installWho').textContent='Detected: '+OS_NAMES[d.os]+' · '+NAMES[d.br];
+  document.getElementById('installSteps').innerHTML=r.t.map(function(x){return '<li>'+x+'</li>'}).join('');
+  document.getElementById('installOther').innerHTML='Not right? <a id="installAll">Show all devices</a>';
+  document.getElementById('installNow').style.display=deferredPrompt?'inline-block':'none';
+  modal.classList.add('active');
+  document.getElementById('installAll').onclick=showAll;
+}
+function showAll(){
+  var sets=[['iPhone / iPad (Safari)',{os:'ios',br:'safari'}],['Android (Chrome)',{os:'android',br:'chrome'}],['Android (Samsung Internet)',{os:'android',br:'samsung'}],['Windows / Linux (Chrome or Edge)',{os:'desktop',br:'chrome'}],['Mac (Safari)',{os:'desktop',br:'safari'}]];
+  document.getElementById('installWho').textContent='All devices';
+  document.getElementById('installSteps').innerHTML=sets.map(function(x){return '<li><b>'+x[0]+':</b> '+stepsFor(x[1]).t.join(' ')+'</li>'}).join('');
+  document.getElementById('installOther').textContent='';
+}
+function closeInstall(){modal.classList.remove('active')}
+triggers.forEach(function(t){t.addEventListener('click',function(){
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(c){if(c.outcome==='accepted')hideTriggers();deferredPrompt=null})}
+  else openInstall();
+})});
+document.getElementById('installClose').onclick=closeInstall;
+document.getElementById('installNow').onclick=function(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;closeInstall()})}};
+modal.addEventListener('click',function(e){if(e.target===modal)closeInstall()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeInstall()});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
